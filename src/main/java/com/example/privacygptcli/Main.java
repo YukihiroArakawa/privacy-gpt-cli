@@ -39,6 +39,13 @@ public class Main {
             // if the received input is "exit", shutdown this application.
             if ("exit".equalsIgnoreCase(message)) break;
 
+            // If you type prohibited words such as company secrets, stop submitting it to OpenAI API.
+            if (hasProhibitedWords(message)) {
+                System.out.println("禁忌ワードを含んでいるので、ChatGPTへの送信をストップしました。");
+                System.out.println("As your message has prohibited words, it stopped submitting it to OpenAi API. ");
+                continue;
+            }
+
             final var userMessage = new ChatMessage();
             userMessage.setRole("user");
             userMessage.setContent(message);
@@ -63,5 +70,15 @@ public class Main {
       }
 
       scanner.close();
+    }
+
+    public static boolean hasProhibitedWords(String message) {
+
+        if (message.isEmpty()) return false;
+
+        List<String> prohibitedWords = new ArrayList<>();
+        prohibitedWords.add("xxx corp");
+
+        return prohibitedWords.stream().anyMatch(message::contains);
     }
 }
