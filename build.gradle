@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.theokanning.openai-gpt3-java:service:0.14.0'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+test {
+    useJUnit()
+}
+
+// 実行時の設定
+run {
+    standardInput = System.in
+//    standardOutput = new FileOutputStream('/dev/null')
+//    errorOutput = System.err
+}
+
+mainClassName = 'com.example.privacygptcli.Main'
+
