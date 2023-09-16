@@ -33,7 +33,7 @@ public class Main {
         // receive stdin, and send it to OpenAI API.
         Scanner scanner = new Scanner(System.in);
         while(true) {
-            System.out.print("You: ");
+            System.out.print("You👨: ");
             final var message = scanner.nextLine();
 
             // if the received input is "exit", shutdown this application.
@@ -65,7 +65,7 @@ public class Main {
             }
 
             var reply = choiceList.get(0).getMessage().getContent();
-            System.out.println("AI: " + reply);
+            System.out.println("GPT🤖: " + reply);
             messages.add(choiceList.get(0).getMessage());
       }
 
