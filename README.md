@@ -16,3 +16,8 @@ $ ./gradlew jar
 $ java -jar build/libs/privacy-gpt-cli.jar
 ```
 5. type `exit` if you quit the interaction.
+
+## demo
+
+https://github.com/YukihiroArakawa/privacy-gpt-cli/assets/54029373/614a9c7e-bb4d-4c9b-86ae-6b2d362da2c5
+
