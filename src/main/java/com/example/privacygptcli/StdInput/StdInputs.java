@@ -26,8 +26,8 @@ public class StdInputs {
 
     public StdInputs appendInput(StdInput input) {
         List<StdInput> list = new ArrayList<>();
-        list.add(input);
         list.addAll(inputList);
+        list.add(input);
         return new StdInputs(list);
     }
 
