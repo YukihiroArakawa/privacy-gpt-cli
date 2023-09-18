@@ -2,7 +2,9 @@ package com.example.privacygptcli;
 
 import com.example.privacygptcli.StdInput.StdInput;
 import com.example.privacygptcli.StdInput.StdInputs;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import java.time.Duration;
@@ -24,8 +26,8 @@ public class Chat {
 
     public static Chat openConnection() {
         List<ChatMessage> messages = new ArrayList<>();
-        final var prompt = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever.";
-        final var promptMessage = new ChatMessage();
+        final String prompt = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever.";
+        final ChatMessage promptMessage = new ChatMessage();
         promptMessage.setRole("system");
         promptMessage.setContent(prompt);
         messages.add(promptMessage);
@@ -67,23 +69,23 @@ public class Chat {
     public void sendUserInputsToApi(StdInputs stdInputs) throws Exception {
         String fullMessage = stdInputs.toString();
 
-        final var userMessage = new ChatMessage();
+        final ChatMessage userMessage = new ChatMessage();
         userMessage.setRole("user");
         userMessage.setContent(fullMessage);
         messages.add(userMessage);
 
-        final var request = ChatCompletionRequest.builder()
+        final ChatCompletionRequest request = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .maxTokens(2048)
                 .build();
 
-        final var completionResult = openAiService.createChatCompletion(request);
-        final var choiceList = completionResult.getChoices();
+        final ChatCompletionResult completionResult = openAiService.createChatCompletion(request);
+        final List<ChatCompletionChoice> choiceList = completionResult.getChoices();
 
         if (choiceList.isEmpty()) throw new Exception("Failed to parse.");
 
-        var reply = choiceList.get(0).getMessage().getContent();
+        String reply = choiceList.get(0).getMessage().getContent();
         displayGptReply(reply);
 
         messages.add(choiceList.get(0).getMessage());
